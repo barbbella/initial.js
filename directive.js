@@ -4,15 +4,16 @@
 
 var app = angular.module('InitTester', []);
 
-app.controller('TestController', function($scope) {
-    $scope.working = "Congrats, you didn't break Angular."
-});
+app.controller('TestController', ['$scope', function($scope) {
+    $scope.firstName = "Kate";
+    $scope.lastName = "Jefferson";
+}]);
 
 app.directive('profilePicSelector', function () {
     return {
-        link: function($scope, $element, attrs) {
-            console.log('testing');
-            $element.initial("Kate", "Jefferson");
+        controller: 'TestController',
+        link: function($scope, $element) {
+            $element.initial($scope.firstName, $scope.lastName);
         }
     }
 });
